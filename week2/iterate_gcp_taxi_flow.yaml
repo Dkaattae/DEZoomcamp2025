@@ -1,0 +1,36 @@
+id: iterate_gcp_taxi_flow
+namespace: zoomcamp
+
+tasks:
+  - id: taxi_iter
+    type: io.kestra.plugin.core.flow.ForEach
+    values: '["yellow"]'
+    tasks:
+      - id: taxi_return
+        type: io.kestra.plugin.core.log.Log
+        message: "{{taskrun.value}}"
+      - id: year_iter
+        type: io.kestra.plugin.core.flow.ForEach
+        values: '["2020"]'
+        tasks:
+          - id: year_return
+            type: io.kestra.plugin.core.log.Log
+            message: "{{taskrun.value}}"
+          - id: month_iter
+            type: io.kestra.plugin.core.flow.ForEach
+            values: '["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11"]'
+            tasks: 
+              - id: month_return
+                type: io.kestra.plugin.core.log.Log
+                message: "{{taskrun.value}}"
+              - id: combinations
+                type: io.kestra.plugin.core.flow.SubFlow
+                flowId: gcp_taxi
+                namespace: zoomcamp
+                inputs: 
+                  taxi: "{{parents[1].taskrun.value}}"
+                  year: "{{parents[0].taskrun.value}}"
+                  month: "{{taskrun.value}}"
+                wait: true
+                transmitFailed: true
+
