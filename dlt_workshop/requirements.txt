@@ -1,0 +1,4 @@
+requests
+pandas
+dlt[duckdb]
+duckdb
