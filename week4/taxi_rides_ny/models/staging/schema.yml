@@ -8,6 +8,7 @@ sources:
       tables:
         - name: green_tripdata
         - name: yellow_tripdata
+        - name: fhv_tripdata
 
 models:
     - name: stg_green_tripdata
@@ -192,3 +193,47 @@ models:
             description: Total amount of all tolls paid in trip.
           - name: Total_amount 
             description: The total amount charged to passengers. Does not include cash tips.
+
+    - name: stg_fhv_tripdata
+      description: For-Hire Vehicle (“FHV”) trip records
+      columns:
+        - name: tripid
+          description: Primary key for this table, generated with a concatenation of pickup_datetime+dropoff_datetime
+          tests:
+            - unique:
+                severity: warn
+            - not_null:
+                severity: warn
+        - name: dispatching_base_num
+          description: dispatching base license number 
+        - name: pickup_datetime
+          description: The date and time when the meter was engaged.
+          tests:
+            - not_null:
+                severity: warn
+        - name: dropoff_datetime
+          description: The date and time when the meter was disengaged.
+          tests:
+            - not_null:
+                severity: warn
+        - name: PUlocationID
+          description: locationid where the meter was engaged.
+          tests:
+            - relationships:
+                to: ref('taxi_zone_lookup')
+                field: locationid
+                severity: warn
+        - name: DOlocationID
+          description: locationid where the meter was disengaged.
+          tests:
+            - relationships:
+                to: ref('taxi_zone_lookup')
+                field: locationid
+                severity: warn
+        - name: SR_Flag
+          description: >
+              Indicates if the trip was a part of a shared ride chain offered by a
+              High Volume FHV company (e.g. Uber Pool, Lyft Line). For shared
+              trips, the value is 1. For non-shared rides, this field is null.
+        - name: Affiliated_base_number
+          description: ""

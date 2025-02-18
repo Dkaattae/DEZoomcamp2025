@@ -10,3 +10,18 @@ macros:
         description: > 
           payment_type value.
           Must be one of the accepted values, otherwise the macro will return null
+  - name: service_layer
+    description: >
+      Consider you're dealing with sensitive data (e.g.: PII), that is only available to your team and very selected few individuals, 
+      in the raw layer of your DWH (e.g: a specific BigQuery dataset or PostgreSQL schema),
+      Among other things, you decide to obfuscate/masquerade that data through your staging models, 
+      and make it available in a different schema (a staging layer) for other Data/Analytics Engineers to explore
+      And optionally, yet another layer (service layer), where you'll build your dimension (dim_) and fact (fct_) tables 
+      (assuming the Star Schema dimensional modeling) for Dashboarding and for Tech Product Owners/Managers
+    arguments: 
+      - name: model_type
+        type: string
+        description: >
+          model_type string.
+          core, staging, service
+    
