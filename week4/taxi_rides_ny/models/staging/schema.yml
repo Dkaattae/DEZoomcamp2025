@@ -39,7 +39,7 @@ models:
             description: The number of passengers in the vehicle. This is a driver-entered value.
           - name: Trip_distance 
             description: The elapsed trip distance in miles reported by the taximeter.
-          - name: Pickup_locationid
+          - name: pickup_locationid
             description: locationid where the meter was engaged.
             tests:
               - relationships:
@@ -216,14 +216,14 @@ models:
           tests:
             - not_null:
                 severity: warn
-        - name: PUlocationID
+        - name: pickup_locationid
           description: locationid where the meter was engaged.
           tests:
             - relationships:
                 to: ref('taxi_zone_lookup')
                 field: locationid
                 severity: warn
-        - name: DOlocationID
+        - name: dropoff_locationid
           description: locationid where the meter was disengaged.
           tests:
             - relationships:
