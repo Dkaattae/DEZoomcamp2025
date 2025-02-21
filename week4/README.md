@@ -31,11 +31,12 @@ so that env_var has to be set in environment.
 when using other value, it will set a value for stging_env_var if exists, if not exists set to target_env_var.   
 so setting stging_env_var is optional.   
 note: if i setup the resolve_schema_for macro file and put ```{{ config(schema=resolve_schema_for('core')) }}``` on top of 'dim_' or 'fact_' models, it will config to target.schema_custome.schema. in my case, that is dbt_kchen_prod.   
-if i need to override default macro generate_schema_name, i need to add following macro:  
+if i need to override default macro generate_schema_name, i need to add following macro in macros/get_custom_schema.sql:    
 <code>&nbsp;{% macro generate_schema_name(custom_schema_name, node) -%}
     {{ generate_schema_name_for_env(custom_schema_name, node) }}
 {%- endmacro %}      
 </code>    
+When using this macro, you'll need to set the target name in your production job to prod.   
 
 ## Q5 Taxi Quarterly Revenue Growth   
  see fact_taxi_trips_quarterly_revenue.sql   
