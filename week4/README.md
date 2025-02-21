@@ -30,7 +30,7 @@ the jinja code provided meaning when using 'core', it will set a value for targe
 so that env_var has to be set in environment.   
 when using other value, it will set a value for stging_env_var if exists, if not exists set to target_env_var.   
 so setting stging_env_var is optional.   
-note: if i setup the resolve_schema_for macro file and put ```{{ config(schema=resolve_schema_for('core')) }}``` on top of dim_ or fact_ models, it will config to target_schema.custome_schema. in my case, that is dbt_<myname>_prod.   
+note: if i setup the resolve_schema_for macro file and put ```{{ config(schema=resolve_schema_for('core')) }}``` on top of 'dim_' or 'fact_' models, it will config to target.schema_custome.schema. in my case, that is dbt_kchen_prod.   
 if i need to override default macro generate_schema_name, i need to add following macro:  
 <code>&nbsp;{% macro generate_schema_name(custom_schema_name, node) -%}
     {{ generate_schema_name_for_env(custom_schema_name, node) }}
