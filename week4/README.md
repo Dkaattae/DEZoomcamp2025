@@ -30,9 +30,16 @@ the jinja code provided meaning when using 'core', it will set a value for targe
 so that env_var has to be set in environment.   
 when using other value, it will set a value for stging_env_var if exists, if not exists set to target_env_var.   
 so setting stging_env_var is optional.   
- ## Q5 Taxi Quarterly Revenue Growth   
+note: if i setup the resolve_schema_for macro file and put ```{{ config(schema=resolve_schema_for('core')) }}``` on top of dim_ or fact_ models, it will config to target_schema.custome_schema. in my case, that is dbt_<myname>_prod.   
+if i need to override default macro generate_schema_name, i need to add following macro:  
+<code>&nbsp;{% macro generate_schema_name(custom_schema_name, node) -%}
+    {{ generate_schema_name_for_env(custom_schema_name, node) }}
+{%- endmacro %}      
+</code>    
+
+## Q5 Taxi Quarterly Revenue Growth   
  see fact_taxi_trips_quarterly_revenue.sql   
- ## Q6 P97/P95/P90 Taxi Monthly Fare   
+## Q6 P97/P95/P90 Taxi Monthly Fare   
  see fact_taxi_trips_monthly_fare_p95.sql   
- ## Q7 Top #Nth longest P90 travel time Location for FHV   
+## Q7 Top #Nth longest P90 travel time Location for FHV   
  see fact_fhv_monthly_zone_traveltime_p90.sql
