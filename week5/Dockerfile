@@ -45,9 +45,3 @@ EXPOSE 8888 4040
 
 # Setup the entrypoint to run Jupyter and start Spark
 CMD bash -c "start-master.sh & jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser --allow-root"
-
-# copy python script
-# COPY pyspark_partition.py pyspark_partition.py
-
-# run python script
-# ENTRYPOINT [ "python3", "pyspark_partition.py" ]
